@@ -29,20 +29,21 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState('')
 
+  // Updated social links with your actual URLs
   const socialLinks = {
-    github: "https://github.com/yourusername",
-    instagram: "https://instagram.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
-    facebook: "https://facebook.com/yourusername"
+    github: "https://github.com/",
+    instagram: "https://www.instagram.com/designwithtk9/",
+    linkedin: "https://www.linkedin.com/in/evidence-murima-68066a37b/",
+    facebook: "https://www.facebook.com/profile.php?id=61575281082248"
   }
 
   const projectLinks = [
-    "https://your-project-1.com",
-    "https://your-project-2.com",
-    "https://your-project-3.com",
-    "https://your-project-4.com",
-    "https://your-project-5.com",
-    "https://your-project-6.com"
+    "https://www.figma.com/design/uDJK3jcOAKmt74p2xgMI8z/Buildlink-Zimbabwe-Website?node-id=193-45&t=2VfS6tAnzi68wYHV-1",
+    "https://www.figma.com/design/60uoWZv3QdFqhkrQvZ9kJX/Fashion-design-App?node-id=0-1&t=cM6nIEYBcSj1Aqb4-1",
+    "https://www.figma.com/design/cwbfxuufIipjsgkehWtfkV/Evidence-Edu-Zim-Connect?node-id=0-1&t=rJM03y7NO57g211d-1",
+    "https://www.figma.com/design/gsxFciF1C4R5xlKv7RPtVS/Real-Estate-wesite?node-id=0-1&t=3KomHXzSSI5SIYzQ-1",
+    "https://github.com/",
+    "https://github.com/"
   ]
 
   const handleInputChange = (
