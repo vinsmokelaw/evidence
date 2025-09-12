@@ -79,8 +79,8 @@ export default function Home() {
 
   const downloadCV = () => {
     const link = document.createElement('a')
-    link.href = '/cv.pdf'
-    link.download = 'Evidence_Tanaka_Murima_CV.pdf'
+    link.href = '/cv.pdf' // Ensure this path is correct
+    link.download = 'Evidence Murima-CV.pdf'
     link.click()
   }
 
@@ -97,12 +97,19 @@ export default function Home() {
       {/* Header */}
       <header className="bg-slate-900/90 backdrop-blur-sm fixed w-full z-50 px-6 py-4">
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-teal-400 rounded-full flex items-center justify-center">
-              <span className="text-slate-900 font-bold text-sm">TM</span>
-            </div>
-            <span className="text-white font-bold text-xl">Tanaka <span className="text-teal-400">VI</span></span>
+         <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 bg-teal-400 rounded-full flex items-center justify-center overflow-hidden">
+            <img 
+              src="/images/logo.jpg" 
+              alt="Logo" 
+              className="w-full h-full object-cover"
+            />
           </div>
+          <span className="text-white font-bold text-xl">
+           Tanaka {/* Tanaka <span className="text-teal-400">VI</span> */}
+          </span>
+        </div>
+
 
           <div className="hidden md:flex items-center space-x-8">
             {['home', 'about', 'services', 'projects', 'contact'].map((section) => (
@@ -151,8 +158,7 @@ export default function Home() {
               based in Zimbabwe. I help businesses bring their vision to life through innovative 
               design solutions. With expertise in user experience design, graphic design, 
               and web development, I create visually appealing and functional designs that engage audiences 
-              and drive results — it's where client & world-class one 
-              studio converge.
+              and drive results.
             </p>
             
             <div className="space-y-4">
@@ -394,10 +400,10 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { id: 1, image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Mobile App Design", desc: "iOS & Android app interface" },
-              { id: 2, image: "https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Web Dashboard", desc: "Admin panel design system" },
-              { id: 3, image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Brand Identity", desc: "Complete branding package" },
-              { id: 4, image: "https://images.pexels.com/photos/574077/pexels-photo-574077.jpeg?auto=compress&cs=tinysrgb&w=400", title: "E-commerce Site", desc: "Online store design" },
+              { id: 1, image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=400", title: "BuildLink", desc: "buildlink website design" },
+              { id: 2, image: "https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Fashion Mobile App", desc: "Fashion mobile application design" },
+              { id: 3, image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Zim Connect", desc: "Connecting people in Zimbabwe" },
+              { id: 4, image: "https://images.pexels.com/photos/574077/pexels-photo-574077.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Real Estate", desc: "Real estate website design" },
               { id: 5, image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Portfolio Website", desc: "Creative portfolio showcase" },
               { id: 6, image: "https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Marketing Materials", desc: "Print and digital designs" }
             ].map((project, index) => (
