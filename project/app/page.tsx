@@ -330,38 +330,36 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { id: 1, image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=400", title: "BuildLink", desc: "buildlink website design" },
-              { id: 2, image: "https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Fashion Mobile App", desc: "Fashion mobile application design" },
-              { id: 3, image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Zim Connect", desc: "Connecting people in Zimbabwe" },
-              { id: 4, image: "https://images.pexels.com/photos/574077/pexels-photo-574077.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Real Estate", desc: "Real estate website design" },
-              { id: 5, image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Portfolio Website", desc: "Creative portfolio showcase" },
-              { id: 6, image: "https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Marketing Materials", desc: "Print and digital designs" }
-            ].map((project, index) => (
-              <div 
-                key={project.id} 
-                onClick={() => openProject(index)}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 hover:bg-white/15 transition-all duration-300 group cursor-pointer hover:scale-105"
-              >
-                <div className="w-full h-48 rounded-xl mb-4 overflow-hidden relative">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                    <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                </div>
-                <div className="text-white">
-                  <h3 className="font-semibold mb-2 group-hover:text-teal-400 transition-colors">{project.title}</h3>
-                  <p className="text-sm text-blue-100">{project.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+ <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+  {[
+    { id: 1, image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=400", title: "BuildLink", desc: "buildlink website design" },
+    { id: 2, image: "https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Fashion Mobile App", desc: "Fashion mobile application design" },
+    { id: 3, image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Zim Connect", desc: "Connecting people in Zimbabwe" },
+    { id: 4, image: "https://images.pexels.com/photos/574077/pexels-photo-574077.jpeg?auto=compress&cs=tinysrgb&w=400", title: "Real Estate", desc: "Real estate website design" },
+  ].map((project, index) => (
+    <div 
+      key={project.id} 
+      onClick={() => openProject(index)}
+      className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 hover:bg-white/15 transition-all duration-300 group cursor-pointer hover:scale-105"
+    >
+      <div className="w-full h-48 rounded-xl mb-4 overflow-hidden relative">
+        <img 
+          src={project.image} 
+          alt={project.title}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+        />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+          <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
+      </div>
+      <div className="text-white">
+        <h3 className="font-semibold mb-2 group-hover:text-teal-400 transition-colors">{project.title}</h3>
+        <p className="text-sm text-blue-100">{project.desc}</p>
+      </div>
+    </div>
+  ))}
+</div>
+</div>
       </section>
 
       {/* Contact Section */}
