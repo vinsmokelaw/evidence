@@ -5,7 +5,7 @@ import {
   Github, Instagram, Linkedin, Facebook,
   Mail, Phone, MapPin, Download, ExternalLink,
   Palette, Monitor, Layers, Menu, X, ArrowRight,
-  CheckCircle, User, Star
+  CheckCircle
 } from 'lucide-react'
 
 type FormData = {
@@ -29,7 +29,6 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState('')
 
-  // Updated social links with your actual URLs
   const socialLinks = {
     github: "https://github.com/",
     instagram: "https://www.instagram.com/designwithtk9/",
@@ -48,22 +47,16 @@ export default function Home() {
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+  ) => setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
-
     try {
       await new Promise(resolve => setTimeout(resolve, 2000))
       setSubmitStatus('success')
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
-    } catch (error) {
+    } catch {
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
@@ -79,42 +72,30 @@ export default function Home() {
 
   const downloadCV = () => {
     const link = document.createElement('a')
-    link.href = '/cv.pdf' // Ensure this path is correct
+    link.href = '/cv.pdf'
     link.download = 'Evidence Murima-CV.pdf'
     link.click()
   }
 
-  const openProject = (index: number) => {
-    window.open(projectLinks[index], '_blank')
-  }
-
-  const openSocialLink = (platform: keyof typeof socialLinks) => {
-    window.open(socialLinks[platform], '_blank')
-  }
+  const openProject = (index: number) => window.open(projectLinks[index], '_blank')
+  const openSocialLink = (platform: keyof typeof socialLinks) => window.open(socialLinks[platform], '_blank')
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-400 via-blue-500 to-blue-600">
       {/* Header */}
       <header className="bg-slate-900/90 backdrop-blur-sm fixed w-full z-50 px-6 py-4">
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
-         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-teal-400 rounded-full flex items-center justify-center overflow-hidden">
-            <img 
-              src="/images/logo.jpg" 
-              alt="Logo" 
-              className="w-full h-full object-cover"
-            />
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-teal-400 rounded-full flex items-center justify-center overflow-hidden">
+              <img src="/images/logo.jpg" alt="Logo" className="w-full h-full object-cover" />
+            </div>
+            <span className="text-white font-bold text-xl">Tanaka</span>
           </div>
-          <span className="text-white font-bold text-xl">
-           Tanaka {/* Tanaka <span className="text-teal-400">VI</span> */}
-          </span>
-        </div>
-
 
           <div className="hidden md:flex items-center space-x-8">
-            {['home', 'about', 'services', 'projects', 'contact'].map((section) => (
-              <button 
-                key={section} 
+            {['home', 'about', 'services', 'projects', 'contact'].map(section => (
+              <button
+                key={section}
                 onClick={() => scrollToSection(section)}
                 className={`text-white hover:text-teal-400 transition-colors ${section === 'contact' ? 'bg-teal-400 text-slate-900 px-4 py-2 rounded-lg' : ''}`}
               >
@@ -123,7 +104,7 @@ export default function Home() {
             ))}
           </div>
 
-          <button 
+          <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden text-white hover:text-teal-400 transition-colors"
           >
@@ -134,9 +115,9 @@ export default function Home() {
         {isMenuOpen && (
           <div className="md:hidden bg-slate-900/95 backdrop-blur-sm mt-4 rounded-lg mx-6 p-4">
             <div className="flex flex-col space-y-4">
-              {['home', 'about', 'services', 'projects', 'contact'].map((section) => (
-                <button 
-                  key={section} 
+              {['home', 'about', 'services', 'projects', 'contact'].map(section => (
+                <button
+                  key={section}
                   onClick={() => scrollToSection(section)}
                   className={`text-white hover:text-teal-400 transition-colors text-left ${section === 'contact' ? 'bg-teal-400 text-slate-900 px-4 py-2 rounded-lg' : ''}`}
                 >
@@ -148,233 +129,184 @@ export default function Home() {
         )}
       </header>
 
-      {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center px-6 pt-20">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="text-white space-y-6">
-            <h1 className="text-4xl lg:text-5xl font-bold">Hi, I'm Evidence, Tanaka, Murima</h1>
-            <p className="text-lg text-blue-100 leading-relaxed max-w-xl">
-              I'm Evidence Tanaka Murima, a creative and certified UX/UI & Graphic Designer 
-              based in Zimbabwe. I help businesses bring their vision to life through innovative 
-              design solutions. With expertise in user experience design, graphic design, 
-              and web development, I create visually appealing and functional designs that engage audiences 
-              and drive results.
-            </p>
-            
-            <div className="space-y-4">
-              <p className="text-xl font-semibold">Find Me on:</p>
-              <div className="flex space-x-4">
-                <button 
-                  onClick={() => openSocialLink('github')}
-                  className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-all duration-300 hover:scale-110"
-                >
-                  <Github className="w-6 h-6" />
-                </button>
-                <button 
-                  onClick={() => openSocialLink('instagram')}
-                  className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-all duration-300 hover:scale-110"
-                >
-                  <Instagram className="w-6 h-6" />
-                </button>
-                <button 
-                  onClick={() => openSocialLink('linkedin')}
-                  className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-all duration-300 hover:scale-110"
-                >
-                  <Linkedin className="w-6 h-6" />
-                </button>
-                <button 
-                  onClick={() => openSocialLink('facebook')}
-                  className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-all duration-300 hover:scale-110"
-                >
-                  <Facebook className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
+{/* Hero Section */}
+<section id="home" className="min-h-screen flex items-center px-6 pt-20">
+  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    
+    {/* Text Content */}
+    <div className="text-white space-y-6">
+      <h1 className="text-4xl lg:text-5xl font-bold">
+        Hi, I'm Evidence, Tanaka, Murima
+      </h1>
+      <p className="text-lg text-blue-100 leading-relaxed max-w-xl">
+        I'm Evidence Tanaka Murima, a creative and certified UX/UI & Graphic Designer based in Zimbabwe. 
+        I help businesses bring their vision to life through innovative design solutions. With expertise 
+        in user experience design, graphic design, and web development, I create visually appealing and 
+        functional designs that engage audiences and drive results.
+      </p>
 
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className="bg-teal-400 text-slate-900 px-8 py-3 rounded-lg font-semibold hover:bg-teal-300 transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-2"
+      <div className="space-y-4">
+        <p className="text-xl font-semibold">Find Me on:</p>
+        <div className="flex space-x-4">
+          {['github', 'instagram', 'linkedin', 'facebook'].map(platform => {
+            const Icon = { github: Github, instagram: Instagram, linkedin: Linkedin, facebook: Facebook }[platform]
+            return (
+              <button
+                key={platform}
+                onClick={() => openSocialLink(platform as keyof typeof socialLinks)}
+                className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-white/20 transition-all duration-300 hover:scale-110"
               >
-                <span>Hire me</span>
-                <ArrowRight className="w-5 h-5" />
+                <Icon className="w-6 h-6" />
               </button>
-              <button 
-                onClick={downloadCV}
-                className="bg-white/10 backdrop-blur-sm text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-2"
-              >
-                <Download className="w-5 h-5" />
-                <span>Resume</span>
-              </button>
-            </div>
+            )
+          })}
+        </div>
+      </div>
+
+      <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+        <button
+          onClick={() => scrollToSection('contact')}
+          className="bg-teal-400 text-slate-900 px-8 py-3 rounded-lg font-semibold hover:bg-teal-300 transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-2"
+        >
+          <span>Hire me</span>
+          <ArrowRight className="w-5 h-5" />
+        </button>
+        <button
+          onClick={downloadCV}
+          className="bg-white/10 backdrop-blur-sm text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-2"
+        >
+          <Download className="w-5 h-5" />
+          <span>Resume</span>
+        </button>
+      </div>
+    </div>
+
+    {/* Hero Image with Orbiting Icons */}
+    <div className="flex justify-center lg:justify-end">
+      <div className="relative w-96 h-96 lg:ml-12"> {/* Increased size and moved right */}
+        
+        {/* Main profile image */}
+        <div className="w-full h-full rounded-full overflow-hidden relative border-4 border-teal-400 shadow-2xl">
+          <img
+            src="/images/q.jpg"
+            alt="Evidence Tanaka Murima"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        {/* Orbiting Icons */}
+        <div className="absolute inset-0">
+          {/* Top icon */}
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-red-500 rounded-lg flex items-center justify-center text-white font-bold shadow-lg animate-orbit-top">
+            Xd
           </div>
 
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative">
-              <div className="w-80 h-80 rounded-full overflow-hidden relative border-4 border-teal-400 shadow-2xl">
-                <img 
-                  src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                  alt="Evidence Tanaka Murima" 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-4 right-4 w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center text-white font-bold shadow-lg animate-pulse">
-                  Xd
-                </div>
-                <div className="absolute top-16 right-8 w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold shadow-lg animate-pulse">
-                  Ai
-                </div>
-                <div className="absolute bottom-16 right-4 w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg animate-pulse">
-                  Ps
-                </div>
-                <div className="absolute bottom-4 right-12 w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center shadow-lg animate-pulse">
-                  <Github className="w-6 h-6 text-white" />
-                </div>
-              </div>
-            </div>
+          {/* Right icon */}
+          <div className="absolute top-1/2 right-0 transform -translate-y-1/2 w-14 h-14 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold shadow-lg animate-orbit-right">
+            Ai
+          </div>
+
+          {/* Bottom icon */}
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg animate-orbit-bottom">
+            Ps
+          </div>
+
+          {/* Left icon */}
+          <div className="absolute top-1/2 left-0 transform -translate-y-1/2 w-14 h-14 bg-slate-800 rounded-lg flex items-center justify-center shadow-lg animate-orbit-left">
+            <Github className="w-6 h-6 text-white" />
           </div>
         </div>
-      </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 px-6 bg-gradient-to-br from-blue-500 to-blue-700">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="flex justify-center lg:justify-start">
-            <div className="relative">
-              <div className="w-80 h-80 rounded-2xl overflow-hidden relative shadow-2xl">
-                <img 
-                  src="https://images.pexels.com/photos/574071/pexels-photo-574071.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                  alt="Designer workspace" 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-4 left-4 w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center text-white font-bold shadow-lg">
-                  Xd
-                </div>
-                <div className="absolute bottom-4 right-4 w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg">
-                  Ps
-                </div>
-                <div className="absolute top-4 right-4 w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center shadow-lg">
-                  <Facebook className="w-6 h-6 text-white" />
-                </div>
-              </div>
-            </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="about" className="py-20 px-6 bg-gradient-to-br from-blue-500 to-blue-700">
+  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+    {/* Circular Image with orbiting icons */}
+    <div className="flex justify-center lg:justify-start relative w-80 h-80 lg:mr-12">
+      <div className="w-full h-full rounded-full overflow-hidden relative border-4 border-teal-400 shadow-2xl">
+        <img
+          src="/images/boy.jpg"
+          alt="Designer workspace"
+          className="w-full h-full object-cover"
+        />
+
+        {/* Orbiting Icons */}
+        <div className="absolute inset-0">
+          <div className="orbit-icon w-14 h-14 bg-red-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+            Xd
           </div>
-
-          <div className="text-white space-y-6">
-            <h2 className="text-4xl font-bold mb-6">About</h2>
-            <p className="text-blue-100 leading-relaxed">
-              I'm Evidence Tanaka Murima, a creative and certified UX/UI & Graphic Designer based in 
-              Zimbabwe. I help businesses bring their vision to life through innovative design 
-              solutions that engage audiences and drive remarkable results.
-            </p>
-
-            <div className="space-y-3">
-              <p><span className="font-semibold">Name:</span> Evidence Murima</p>
-              <p><span className="font-semibold">Date of birth:</span> 05/10/2002</p>
-              <p><span className="font-semibold">Address:</span> Kuwadzana Extension 759</p>
-              <p><span className="font-semibold">Email:</span> murimaevidence97@gmail.com</p>
-              <p><span className="font-semibold">Phone Number:</span> 0777003834</p>
-            </div>
-
-            <button 
-              onClick={downloadCV}
-              className="bg-teal-400 text-slate-900 px-6 py-3 rounded-lg font-semibold hover:bg-teal-300 transition-all duration-300 hover:scale-105 flex items-center space-x-2 mt-6"
-            >
-              <Download className="w-5 h-5" />
-              <span>Download CV</span>
-            </button>
-
-            <div className="grid grid-cols-3 gap-4 mt-8">
-              <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="text-3xl font-bold text-teal-400 mb-2">90%</div>
-                <div className="text-sm">UI/UX Design</div>
-                <div className="w-full bg-white/20 rounded-full h-2 mt-2">
-                  <div className="bg-teal-400 h-2 rounded-full" style={{width: '90%'}}></div>
-                </div>
-              </div>
-              <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="text-3xl font-bold text-teal-400 mb-2">86%</div>
-                <div className="text-sm">Graphic Design</div>
-                <div className="w-full bg-white/20 rounded-full h-2 mt-2">
-                  <div className="bg-teal-400 h-2 rounded-full" style={{width: '86%'}}></div>
-                </div>
-              </div>
-              <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <div className="text-3xl font-bold text-teal-400 mb-2">60%</div>
-                <div className="text-sm">Web design</div>
-                <div className="w-full bg-white/20 rounded-full h-2 mt-2">
-                  <div className="bg-teal-400 h-2 rounded-full" style={{width: '60%'}}></div>
-                </div>
-              </div>
-            </div>
+          <div className="orbit-icon w-14 h-14 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg" style={{ animationDelay: '1.5s' }}>
+            Ai
+          </div>
+          <div className="orbit-icon w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg" style={{ animationDelay: '3s' }}>
+            Ps
+          </div>
+          <div className="orbit-icon w-14 h-14 bg-blue-500 rounded-full flex items-center justify-center shadow-lg" style={{ animationDelay: '4.5s' }}>
+            <Facebook className="w-6 h-6 text-white" />
           </div>
         </div>
-      </section>
+      </div>
+    </div>
 
-      {/* Services Section */}
-      <section id="services" className="py-20 px-6 bg-gradient-to-br from-blue-600 to-blue-800">
-        <div className="max-w-7xl mx-auto text-center text-white">
-          <p className="text-blue-200 mb-2">Services</p>
-          <h2 className="text-4xl font-bold mb-4">What am I Providing</h2>
-          <p className="text-blue-100 max-w-3xl mx-auto mb-16">
-            Elevate your business with my comprehensive design and creative development expertise! 
-            I specialize in transforming concepts into compelling visual experiences that captivate 
-            audiences and drive meaningful results.
-          </p>
+    {/* Text Content */}
+    <div className="text-white space-y-6">
+      <h2 className="text-4xl font-bold mb-6">About</h2>
+      <p className="text-blue-100 leading-relaxed">
+        I'm Evidence Tanaka Murima, a creative and certified UX/UI & Graphic Designer based in 
+        Zimbabwe. I help businesses bring their vision to life through innovative design 
+        solutions that engage audiences and drive remarkable results.
+      </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 group">
-              <div className="w-16 h-16 bg-teal-400 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Palette className="w-8 h-8 text-slate-900" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Graphic Design</h3>
-              <p className="text-blue-100 mb-6">
-                Creating visually stunning graphics that communicate your brand message effectively 
-                and leave a lasting impression on your audience.
-              </p>
-              <button 
-                onClick={() => alert('Graphic Design services - Contact me for more details!')}
-                className="bg-teal-400 text-slate-900 px-6 py-2 rounded-lg font-semibold hover:bg-teal-300 transition-all duration-300 hover:scale-105"
-              >
-                View more
-              </button>
-            </div>
+      <div className="space-y-3">
+        <p><span className="font-semibold">Name:</span> Evidence Murima</p>
+        <p><span className="font-semibold">Date of birth:</span> 05/10/2002</p>
+        <p><span className="font-semibold">Address:</span> Kuwadzana Extension 759</p>
+        <p><span className="font-semibold">Email:</span> murimaevidence97@gmail.com</p>
+        <p><span className="font-semibold">Phone Number:</span> 0777003834</p>
+      </div>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 group">
-              <div className="w-16 h-16 bg-teal-400 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Monitor className="w-8 h-8 text-slate-900" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Web Design</h3>
-              <p className="text-blue-100 mb-6">
-                Designing responsive and user-friendly websites that provide exceptional user 
-                experiences across all devices and platforms.
-              </p>
-              <button 
-                onClick={() => alert('Web Design services - Contact me for more details!')}
-                className="bg-teal-400 text-slate-900 px-6 py-2 rounded-lg font-semibold hover:bg-teal-300 transition-all duration-300 hover:scale-105"
-              >
-                View more
-              </button>
-            </div>
+      <button 
+        onClick={downloadCV}
+        className="bg-teal-400 text-slate-900 px-6 py-3 rounded-lg font-semibold hover:bg-teal-300 transition-all duration-300 hover:scale-105 flex items-center space-x-2 mt-6"
+      >
+        <Download className="w-5 h-5" />
+        <span>Download CV</span>
+      </button>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 group">
-              <div className="w-16 h-16 bg-teal-400 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Layers className="w-8 h-8 text-slate-900" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">UI / UX Design</h3>
-              <p className="text-blue-100 mb-6">
-                Crafting intuitive and engaging user interfaces that enhance user satisfaction 
-                and drive business growth through thoughtful design decisions.
-              </p>
-              <button 
-                onClick={() => alert('UI/UX Design services - Contact me for more details!')}
-                className="bg-teal-400 text-slate-900 px-6 py-2 rounded-lg font-semibold hover:bg-teal-300 transition-all duration-300 hover:scale-105"
-              >
-                View more
-              </button>
-            </div>
+      <div className="grid grid-cols-3 gap-4 mt-8">
+        <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
+          <div className="text-3xl font-bold text-teal-400 mb-2">90%</div>
+          <div className="text-sm">UI/UX Design</div>
+          <div className="w-full bg-white/20 rounded-full h-2 mt-2">
+            <div className="bg-teal-400 h-2 rounded-full" style={{width: '90%'}}></div>
           </div>
         </div>
-      </section>
+        <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
+          <div className="text-3xl font-bold text-teal-400 mb-2">86%</div>
+          <div className="text-sm">Graphic Design</div>
+          <div className="w-full bg-white/20 rounded-full h-2 mt-2">
+            <div className="bg-teal-400 h-2 rounded-full" style={{width: '86%'}}></div>
+          </div>
+        </div>
+        <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
+          <div className="text-3xl font-bold text-teal-400 mb-2">60%</div>
+          <div className="text-sm">Web Design</div>
+          <div className="w-full bg-white/20 rounded-full h-2 mt-2">
+            <div className="bg-teal-400 h-2 rounded-full" style={{width: '60%'}}></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
       {/* Projects Section */}
       <section id="projects" className="py-20 px-6 bg-gradient-to-br from-blue-700 to-teal-600">
@@ -558,10 +490,14 @@ export default function Home() {
       <footer className="bg-slate-900/90 backdrop-blur-sm py-8 px-6">
         <div className="max-w-7xl mx-auto text-center text-white">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-8 h-8 bg-teal-400 rounded-full flex items-center justify-center">
-              <span className="text-slate-900 font-bold text-sm">TM</span>
+            <div className="w-8 h-8 bg-teal-400 rounded-full flex items-center justify-center overflow-hidden">
+              <img 
+                src="/images/logo.jpg" 
+                alt="Logo" 
+                className="w-full h-full object-cover"
+              />
             </div>
-            <span className="font-bold text-xl">Tanaka <span className="text-teal-400">VI</span></span>
+            <span className="font-bold text-xl">Tanaka</span>
           </div>
           <p className="text-blue-200 mb-4">
             Creating exceptional digital experiences through innovative design solutions.
@@ -593,10 +529,65 @@ export default function Home() {
             </button>
           </div>
           <p className="text-sm text-blue-300">
-            © 2024 Evidence Tanaka Murima. All rights reserved.
+            © 2025 Evidence Tanaka Murima. All rights reserved.
           </p>
         </div>
       </footer>
+
+      {/* Add CSS for the orbiting animation */}
+      <style jsx>{`
+        @keyframes orbit-top {
+          0% {
+            transform: translate(-50%, -50%) rotate(0deg) translateY(-140px) rotate(0deg);
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(360deg) translateY(-140px) rotate(-360deg);
+          }
+        }
+        
+        @keyframes orbit-right {
+          0% {
+            transform: translate(-50%, -50%) rotate(0deg) translateX(140px) rotate(0deg);
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(360deg) translateX(140px) rotate(-360deg);
+          }
+        }
+        
+        @keyframes orbit-bottom {
+          0% {
+            transform: translate(-50%, -50%) rotate(0deg) translateY(140px) rotate(0deg);
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(360deg) translateY(140px) rotate(-360deg);
+          }
+        }
+        
+        @keyframes orbit-left {
+          0% {
+            transform: translate(-50%, -50%) rotate(0deg) translateX(-140px) rotate(0deg);
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(360deg) translateX(-140px) rotate(-360deg);
+          }
+        }
+        
+        .animate-orbit-top {
+          animation: orbit-top 12s linear infinite;
+        }
+        
+        .animate-orbit-right {
+          animation: orbit-right 12s linear infinite;
+        }
+        
+        .animate-orbit-bottom {
+          animation: orbit-bottom 12s linear infinite;
+        }
+        
+        .animate-orbit-left {
+          animation: orbit-left 12s linear infinite;
+        }
+      `}</style>
     </div>
   )
 }

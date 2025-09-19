@@ -63,28 +63,73 @@ const config: Config = {
       },
       keyframes: {
         'accordion-down': {
-          from: {
-            height: '0',
-          },
-          to: {
-            height: 'var(--radix-accordion-content-height)',
-          },
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
         },
         'accordion-up': {
-          from: {
-            height: 'var(--radix-accordion-content-height)',
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+        spin: {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
+        // Orbiting animation keyframes
+        orbit: {
+          '0%': {
+            transform: 'translate(-50%, -50%) rotate(0deg) translateX(140px) rotate(0deg)',
           },
-          to: {
-            height: '0',
+          '100%': {
+            transform: 'translate(-50%, -50%) rotate(360deg) translateX(140px) rotate(-360deg)',
+          },
+        },
+        'orbit-top': {
+          '0%': {
+            transform: 'translate(-50%, -50%) rotate(0deg) translateY(-140px) rotate(0deg)',
+          },
+          '100%': {
+            transform: 'translate(-50%, -50%) rotate(360deg) translateY(-140px) rotate(-360deg)',
+          },
+        },
+        'orbit-right': {
+          '0%': {
+            transform: 'translate(-50%, -50%) rotate(0deg) translateX(140px) rotate(0deg)',
+          },
+          '100%': {
+            transform: 'translate(-50%, -50%) rotate(360deg) translateX(140px) rotate(-360deg)',
+          },
+        },
+        'orbit-bottom': {
+          '0%': {
+            transform: 'translate(-50%, -50%) rotate(0deg) translateY(140px) rotate(0deg)',
+          },
+          '100%': {
+            transform: 'translate(-50%, -50%) rotate(360deg) translateY(140px) rotate(-360deg)',
+          },
+        },
+        'orbit-left': {
+          '0%': {
+            transform: 'translate(-50%, -50%) rotate(0deg) translateX(-140px) rotate(0deg)',
+          },
+          '100%': {
+            transform: 'translate(-50%, -50%) rotate(360deg) translateX(-140px) rotate(-360deg)',
           },
         },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'spin-slow': 'spin 12s linear infinite',
+        // Orbiting animations
+        'orbit': 'orbit 12s linear infinite',
+        'orbit-top': 'orbit-top 12s linear infinite',
+        'orbit-right': 'orbit-right 12s linear infinite',
+        'orbit-bottom': 'orbit-bottom 12s linear infinite',
+        'orbit-left': 'orbit-left 12s linear infinite',
       },
     },
   },
   plugins: [require('tailwindcss-animate')],
 };
+
 export default config;
