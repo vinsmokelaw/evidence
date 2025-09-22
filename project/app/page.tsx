@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   Github, 
   Instagram, 
@@ -33,6 +33,31 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState('')
 
+  // Nav disappear on scroll logic
+  const [showNav, setShowNav] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    let ticking = false
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.scrollY > lastScrollY && window.scrollY > 80) {
+            setShowNav(false)
+          } else {
+            setShowNav(true)
+          }
+          setLastScrollY(window.scrollY)
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+    // eslint-disable-next-line
+  }, [lastScrollY])
+
   const socialLinks = {
     github: "https://github.com/",
     instagram: "https://www.instagram.com/designwithtk9/", 
@@ -43,28 +68,28 @@ export default function Home() {
   const projects = [
     { 
       id: 1, 
-      image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=400", 
+      image: "images/45.jpg", 
       title: "Buildlink Zimbabwe Website",
       desc: "iOS & Android app interface",
       link: "https://www.figma.com/design/uDJK3jcOAKmt74p2xgMI8z/Buildlink-Zimbabwe-Website?node-id=193-45&t=2VfS6tAnzi68wYHV-1"
     },
     { 
       id: 2, 
-      image: "https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=400", 
+      image: "", 
       title: "Fashion Design App",
       desc: "Admin panel design system",
       link: "https://www.figma.com/design/60uoWZv3QdFqhkrQvZ9kJX/Fashion-design-App?node-id=0-1&t=cM6nIEYBcSj1Aqb4-1"
     },
     { 
       id: 3, 
-      image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=400", 
+      image: "images/51.jpg", 
       title: "Evidence Edu Zim Connect",
       desc: "Complete branding package",
       link: "https://www.figma.com/design/cwbfxuufIipjsgkehWtfkV/Evidence-Edu-Zim-Connect?node-id=0-1&t=rJM03y7NO57g211d-1"
     },
     { 
       id: 4, 
-      image: "https://images.pexels.com/photos/574077/pexels-photo-574077.jpeg?auto=compress&cs=tinysrgb&w=400", 
+      image: "images/48.jpg", 
       title: "Real Estate Website",
       desc: "Online store design",
       link: "https://www.figma.com/design/gsxFciF1C4R5xlKv7RPtVS/Real-Estate-wesite?node-id=0-1&t=3KomHXzSSI5SIYzQ-1"
@@ -119,7 +144,11 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-400 via-blue-500 to-blue-600">
       {/* NAVIGATION BAR */}
-      <header className="bg-slate-900/90 backdrop-blur-sm fixed w-full z-50 px-6 py-4">
+      <header
+        className={`bg-slate-900/90 backdrop-blur-sm fixed w-full z-50 px-6 py-4 transition-transform duration-300 ${
+          showNav ? 'translate-y-0' : '-translate-y-full'
+        }`}
+      >
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-teal-400 rounded-full flex items-center justify-center overflow-hidden">
@@ -133,12 +162,7 @@ export default function Home() {
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
-                className={
-                  `text-white px-4 py-2 rounded-lg transition-colors font-semibold
-                  hover:bg-blue-400 hover:text-white`
-                  + (section === 'contact'
-                    ? ' bg-teal-400 text-slate-900 hover:bg-blue-400 hover:text-white'
-                    : '')}
+                className={`text-white px-4 py-2 rounded-lg transition-colors font-semibold hover:bg-blue-400 hover:text-white`}
                 style={{
                   transition: 'background 0.2s, color 0.2s'
                 }}
@@ -163,12 +187,7 @@ export default function Home() {
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className={
-                    `text-white px-4 py-2 rounded-lg transition-colors font-semibold text-left
-                    hover:bg-blue-400 hover:text-white` +
-                    (section === 'contact'
-                      ? ' bg-teal-400 text-slate-900 hover:bg-blue-400 hover:text-white'
-                      : '')}
+                  className={`text-white px-4 py-2 rounded-lg transition-colors font-semibold text-left hover:bg-blue-400 hover:text-white`}
                   style={{
                     transition: 'background 0.2s, color 0.2s'
                   }}
@@ -180,7 +199,6 @@ export default function Home() {
           </div>
         )}
       </header>
-
       {/* Hero Section */}
       <section id="home" className="min-h-screen flex items-center px-6 pt-20">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -411,53 +429,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 px-6 bg-gradient-to-br from-blue-700 to-teal-600">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row justify-between items-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4 sm:mb-0">Latest Projects</h2>
-            <div className="flex space-x-4">
-              <button 
-                onClick={() => alert('View all projects - Coming soon!')}
-                className="text-teal-400 hover:text-teal-300 transition-colors flex items-center space-x-1"
-              >
-                <span>View All</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-              <button 
-                onClick={() => alert('Portfolio section - Coming soon!')}
-                className="bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 hover:scale-105"
-              >
-                Portfolios
-              </button>
+<section id="projects" className="py-20 px-6 bg-gradient-to-br from-blue-700 to-teal-600">
+  <div className="max-w-7xl mx-auto">
+    <div className="flex flex-col sm:flex-row justify-between items-center mb-12">
+      <h2 className="text-4xl font-bold text-white mb-4 sm:mb-0">Latest Projects</h2>
+      <div className="flex space-x-4">
+        <button 
+          onClick={() => alert('View all projects - Coming soon!')}
+          className="text-teal-400 hover:text-teal-300 transition-colors flex items-center space-x-1"
+        >
+          <span>View All</span>
+          <ArrowRight className="w-4 h-4" />
+        </button>
+        <button 
+          onClick={() => alert('Portfolio section - Coming soon!')}
+          className="bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 hover:scale-105"
+        >
+          Portfolios
+        </button>
+      </div>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+      {projects.map((project, index) => (
+        <div 
+          key={project.id} 
+          onClick={() => openProject(index)}
+          className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 hover:bg-white/15 transition-all duration-300 group cursor-pointer hover:scale-105 flex flex-col items-center"
+        >
+          {/* SQUARE IMAGE CONTAINER 60% WIDTH */}
+          <div className="w-3/5 aspect-square mx-auto rounded-xl mb-4 overflow-hidden relative bg-slate-800 flex items-center justify-center">
+            {project.image ? (
+              <img 
+                src={project.image} 
+                alt={project.title}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+              />
+            ) : (
+              <span className="text-blue-200 text-xl">No Image</span>
+            )}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+              <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-            {projects.map((project, index) => (
-              <div 
-                key={project.id} 
-                onClick={() => openProject(index)}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 hover:bg-white/15 transition-all duration-300 group cursor-pointer hover:scale-105"
-              >
-                <div className="w-full h-48 rounded-xl mb-4 overflow-hidden relative">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                    <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                </div>
-                <div className="text-white">
-                  <h3 className="font-semibold mb-2 group-hover:text-teal-400 transition-colors">{project.title}</h3>
-                  <p className="text-sm text-blue-100">{project.desc}</p>
-                </div>
-              </div>
-            ))}
+          <div className="text-white text-center w-full">
+            <h3 className="font-semibold mb-2 group-hover:text-teal-400 transition-colors">{project.title}</h3>
+            <p className="text-sm text-blue-100">{project.desc}</p>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-6 bg-gradient-to-br from-teal-600 to-blue-800">
