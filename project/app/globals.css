@@ -2,14 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ---------- Root Variables ---------- */
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
 
-/* ---------- Dark Mode Variables ---------- */
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -18,7 +16,6 @@
   }
 }
 
-/* ---------- Base Styles ---------- */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -47,7 +44,6 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
-
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -74,48 +70,13 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+}
 
-  /* Global Elements */
+@layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
-  }
-}
-
-/* ---------- Orbit Animations ---------- */
-@layer utilities {
-  @keyframes orbit-top {
-    0% { transform: rotate(0deg) translateY(-140px) rotate(0deg); }
-    100% { transform: rotate(360deg) translateY(-140px) rotate(-360deg); }
-  }
-
-  @keyframes orbit-right {
-    0% { transform: rotate(0deg) translateX(140px) rotate(0deg); }
-    100% { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
-  }
-
-  @keyframes orbit-bottom {
-    0% { transform: rotate(0deg) translateY(140px) rotate(0deg); }
-    100% { transform: rotate(360deg) translateY(140px) rotate(-360deg); }
-  }
-
-  @keyframes orbit-left {
-    0% { transform: rotate(0deg) translateX(-140px) rotate(0deg); }
-    100% { transform: rotate(360deg) translateX(-140px) rotate(-360deg); }
-  }
-
-  .animate-orbit-top {
-    animation: orbit-top 6s linear infinite;
-  }
-  .animate-orbit-right {
-    animation: orbit-right 6s linear infinite;
-  }
-  .animate-orbit-bottom {
-    animation: orbit-bottom 6s linear infinite;
-  }
-  .animate-orbit-left {
-    animation: orbit-left 6s linear infinite;
   }
 }
